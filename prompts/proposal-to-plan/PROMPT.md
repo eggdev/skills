@@ -1,0 +1,63 @@
+---
+title: proposal-to-plan
+version: 1
+description: Runs inside a project; converts adopt-verdict assessments into concrete implementation plans — steps, files touched, verification, rollback — and records them in the shared ledger. Use as the third stage of the scout → assess → plan pipeline.
+fields:
+  project_name:
+    description: Stable identifier matching the assessments table key
+    required: true
+  ledger_db:
+    description: Path to the shared scout ledger database
+    default: ~/dev/skills/research/agentic-tooling/ledger.db
+  plans_dir:
+    description: Where plan docs live in the project
+    default: docs/plans
+---
+
+Convert adopted tooling proposals into executable implementation plans for this
+project. You are a planner, not an implementer: write plans; never modify project
+code in this loop.
+
+## Setup (idempotent)
+
+Ensure {{ledger_db}} has:
+`CREATE TABLE IF NOT EXISTS plans(id INTEGER PRIMARY KEY, assessment_id INTEGER,
+project TEXT, plan_path TEXT, planned_date TEXT, status TEXT DEFAULT 'planned',
+UNIQUE(assessment_id, project));`
+Ensure {{plans_dir}}/ exists.
+
+## One iteration
+
+1. If the `assessments` table doesn't exist, the assess loop hasn't run yet — say
+   so plainly and stop. Otherwise query unplanned adoptions:
+   `SELECT a.id, a.proposal_id, a.integration_path, a.benefit, a.effort_hours,
+   a.effort_class, f.name, f.summary, f.url FROM assessments a
+   JOIN finds f ON f.id = a.proposal_id
+   LEFT JOIN plans p ON p.assessment_id = a.id AND p.project = '{{project_name}}'
+   WHERE a.project = '{{project_name}}' AND a.verdict = 'adopt' AND p.id IS NULL;`
+   If none, say so plainly and stop — an empty run is a valid outcome.
+2. For each unplanned adoption, read its proposal doc (proposals/ next to the db)
+   and verify the assessment's integration_path against the current codebase — the
+   project may have moved since the assessment; note and adapt where it has.
+3. Write {{plans_dir}}/<kebab-slug>.md per adoption:
+   - **Goal & expected benefit** (from the assessment, sharpened against reality)
+   - **Steps** — ordered, each independently verifiable, sized so the whole plan
+     matches the assessed effort_class; if reality shows the assessment's effort
+     was wrong, say so explicitly (this feeds calibration)
+   - **Files/configs touched** — concrete paths
+   - **Verification** — how to prove it works (commands, observable behavior)
+   - **Rollback** — how to back it out cleanly
+   - **Launch line** — the exact command to execute this plan (e.g. a worktree
+     session with superpowers:executing-plans, or a /loop invocation); humans or
+     a downstream loop pull the trigger, never this loop.
+4. Insert one plans row per plan written (status 'planned'; humans or the
+   implementing session advance it to in-progress/done/abandoned — that
+   progression against the assessment's predictions is the eval).
+5. Never rewrite an existing plan doc. If an adoption's plan is stale because the
+   project changed, note it in the report; a human deletes the plans row to
+   trigger replanning.
+
+## Report
+
+End with: adoptions found, plans written (name → path, effort_class), any effort
+mismatches between assessment and plan reality, and each plan's launch line.
