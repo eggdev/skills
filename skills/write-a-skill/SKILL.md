@@ -95,7 +95,9 @@ Add utility scripts when:
 - Same code would be generated repeatedly
 - Errors need explicit handling
 
-Scripts save tokens and improve reliability vs generated code.
+Scripts save tokens and improve reliability vs generated code. For when/why and how to
+extract them (manifest, idempotence, family-level `scripts/` dirs), see the
+`build-a-tool-first` skill.
 
 ## When to Split Files
 
