@@ -41,7 +41,8 @@ skills.
    runs against `research/agentic-tooling/ledger.db` and matches the inline SQL's output.
 
 3. **Update loop prompts to call the script**: in the three PROMPT.md files (and bump their
-   versioned copies per the prompt-library convention — write new `v2.md`, don't edit `v1.md`),
+   versioned copies per the prompt-library convention — write the next vN.md, never edit a
+   prior version; note proposal-to-plan is already at v2, so its bump is v3),
    replace inline SQL setup/query blocks with invocations of `prompts/scripts/ledger.sh`,
    keeping the inline SQL as a fallback comment for portability.
    *Verify*: diff shows no remaining duplicated CREATE TABLE blocks; a dry read of each prompt
@@ -78,7 +79,7 @@ All changes are additive files plus prompt edits in a git repo:
 ## Launch line
 
 ```
-claude "Use superpowers:using-git-worktrees to create a worktree, then use superpowers:executing-plans to execute /Users/clyde/dev/skills/docs/plans/build-a-tool-first-skill.md"
+/ce-work /Users/clyde/dev/skills/docs/plans/build-a-tool-first-skill.md
 ```
 
 ## Effort note
