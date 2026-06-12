@@ -32,6 +32,10 @@ shift $((OPTIND - 1))
 cmd="$1"; shift
 
 sq() { sqlite3 "$DB" "$@"; }
+esc() { printf %s "$1" | sed "s/'/''/g"; }
+is_int() { [[ "$1" =~ ^[0-9]+$ ]] || { echo "error: '$1' is not an integer" >&2; exit 1; }; }
+is_num() { [[ "$1" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "error: '$1' is not a number" >&2; exit 1; }; }
+is_date() { [[ "$1" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || { echo "error: '$1' is not YYYY-MM-DD" >&2; exit 1; }; }
 
 case "$cmd" in
   init)
@@ -51,40 +55,43 @@ SQL
     ;;
   unassessed)
     [ $# -eq 1 ] || usage
+    proj=$(esc "$1")
     sq -header -column "SELECT f.id, f.name, f.url, f.summary FROM finds f
-      LEFT JOIN assessments a ON a.proposal_id = f.id AND a.project = '$1'
+      LEFT JOIN assessments a ON a.proposal_id = f.id AND a.project = '$proj'
       WHERE a.id IS NULL;"
     ;;
   unplanned)
     [ $# -eq 1 ] || usage
+    proj=$(esc "$1")
     sq -header -column "SELECT a.id, a.proposal_id, f.name, a.integration_path,
       a.benefit, a.effort_hours, a.effort_class FROM assessments a
       JOIN finds f ON f.id = a.proposal_id
-      LEFT JOIN plans p ON p.assessment_id = a.id AND p.project = '$1'
-      WHERE a.project = '$1' AND a.verdict = 'adopt' AND p.id IS NULL;"
+      LEFT JOIN plans p ON p.assessment_id = a.id AND p.project = '$proj'
+      WHERE a.project = '$proj' AND a.verdict = 'adopt' AND p.id IS NULL;"
     ;;
   insert-find)
     [ $# -eq 4 ] || usage
+    is_date "$4"
     sq "INSERT INTO finds(name, url, summary, found_date) VALUES (
-      '$(printf %s "$1" | sed "s/'/''/g")', '$(printf %s "$2" | sed "s/'/''/g")',
-      '$(printf %s "$3" | sed "s/'/''/g")', '$4');
+      '$(esc "$1")', '$(esc "$2")', '$(esc "$3")', '$4');
       INSERT INTO finds_fts(rowid, name, summary) VALUES (last_insert_rowid(),
-      '$(printf %s "$1" | sed "s/'/''/g")', '$(printf %s "$3" | sed "s/'/''/g")');"
+      '$(esc "$1")', '$(esc "$3")');"
     echo "ok: find inserted"
     ;;
   insert-assessment)
     [ $# -eq 8 ] || usage
+    is_int "$1"; is_num "$6"; is_date "$8"
     sq "INSERT INTO assessments(proposal_id, project, verdict, integration_path, benefit,
       effort_hours, effort_class, assessed_date) VALUES ($1,
-      '$(printf %s "$2" | sed "s/'/''/g")', '$(printf %s "$3" | sed "s/'/''/g")',
-      '$(printf %s "$4" | sed "s/'/''/g")', '$(printf %s "$5" | sed "s/'/''/g")',
-      $6, '$(printf %s "$7" | sed "s/'/''/g")', '$8');"
+      '$(esc "$2")', '$(esc "$3")', '$(esc "$4")', '$(esc "$5")',
+      $6, '$(esc "$7")', '$8');"
     echo "ok: assessment inserted"
     ;;
   insert-plan)
     [ $# -eq 4 ] || usage
+    is_int "$1"; is_date "$4"
     sq "INSERT INTO plans(assessment_id, project, plan_path, planned_date) VALUES ($1,
-      '$(printf %s "$2" | sed "s/'/''/g")', '$(printf %s "$3" | sed "s/'/''/g")', '$4');"
+      '$(esc "$2")', '$(esc "$3")', '$4');"
     echo "ok: plan inserted"
     ;;
   *) usage ;;
