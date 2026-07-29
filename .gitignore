@@ -1,0 +1,9 @@
+# The repo is markdown source-of-truth; the one code artifact is the detector engine
+# (skills/standards/detectors/, the GOAL-sanctioned exception). Keep its deps out of git.
+node_modules/
+*.tsbuildinfo
+.DS_Store
+
+# Detector engine scratch / reports
+skills/standards/detectors/**/*.report.json
+.conformance/
