@@ -31,6 +31,10 @@ now, across Reddit, X, YouTube, HN and the rest. Nothing else here does that job
 [`no-ai-slop`](skills/no-ai-slop/) — edits drafts into sharper, more human writing without
 flattening the writer's voice. MIT; the upstream `LICENSE` is retained in the skill directory.
 
+**[Ayoub Ghriss](https://github.com/ayghri)** - [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)
+[`i-have-adhd`](skills/i-have-adhd/) - Shape output for a reader with ADHD: lead with the next action, number multi-step work, restate state across turns, suppress tangents, give specific time estimates, make wins visible.
+
+
 Vendored copies drift from upstream once adapted. Check the source repo for the canonical
 version and its license before redistributing any of these. [`last30days`](skills/last30days/)
 ships without its upstream `assets/` directory — 14 MB of demo media that `SKILL.md` never
