@@ -7,3 +7,9 @@ node_modules/
 # Detector engine scratch / reports
 skills/standards/detectors/**/*.report.json
 .conformance/
+
+# Personal project-installed skills (npx skills, equip, and similar testing).
+# These stay local; the public repo ships only skills/.
+/.agents/
+/.claude/
+/skills-lock.json
