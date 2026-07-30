@@ -252,7 +252,7 @@ export function normalizeToolCall(toolName, toolInput) {
 
 // ---------- evaluation ----------
 
-export function evaluate(rules, phase, targets, cwd) {
+export function evaluate(rules, phase, targets) {
   const wantTier = phase === "PreToolUse" ? "block" : "nudge";
   const violations = [];
   for (const rule of rules) {
@@ -319,7 +319,7 @@ export function runHook(input) {
   const targets = normalizeToolCall(input.tool_name, input.tool_input);
   if (targets.length === 0) return null;
   const rules = loadRules(defaultRuleDirs(input.cwd));
-  let violations = evaluate(rules, phase, targets, input.cwd);
+  let violations = evaluate(rules, phase, targets);
   if (phase === "PostToolUse") violations = filterAlreadyFired(violations, input.session_id);
   if (violations.length === 0) return null;
   const reason = formatReason(violations, phase);
