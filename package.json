@@ -10,7 +10,8 @@
   "license": "MIT",
   "scripts": {
     "changeset": "changeset",
-    "version": "changeset version"
+    "version": "changeset version",
+    "test": "node --test hooks/rule-gate.test.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

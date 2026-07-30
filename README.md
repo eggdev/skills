@@ -41,9 +41,25 @@ ships without its upstream `assets/` directory — 14 MB of demo media that `SKI
 references.
 
 
+## Rules
+
+[`rules/`](rules/) holds universal engineering rules: one markdown file per rule, with a
+regex trigger and a scope in the frontmatter and the corrective instruction in the body.
+They are the minimum standard of care for any project, defined once and enforced in every
+harness. [`hooks/rule-gate.mjs`](hooks/rule-gate.mjs) evaluates them as PreToolUse/PostToolUse
+hooks in Claude Code and Codex CLI; omp reads the same files natively through the
+`~/.agents/rules` symlink and enforces them as TTSR rules. The format and the tier model are
+documented in [`rules/README.md`](rules/README.md).
+
+[`home/AGENTS.md`](home/AGENTS.md) is the prose tier: global guidance that loads into every
+session but is not mechanically enforced.
+
 ## Installing
 
-Clone, then link the skills you want into `~/.claude/skills`:
+Run [`install.sh`](install.sh) to deploy everything global: the `~/.agents/rules` symlink,
+the `~/.claude/CLAUDE.md` symlink, and the rule-gate hook wiring for Claude Code and Codex.
+
+For skills alone, clone and link the ones you want into `~/.claude/skills`:
 
 ```bash
 # all of them
