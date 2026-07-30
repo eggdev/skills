@@ -28,5 +28,9 @@ link "$REPO/home/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 # Enforcement tier: PreToolUse/PostToolUse hooks for Claude Code and Codex CLI.
 node "$REPO/hooks/install.mjs"
 
+# Skill installer: the `equip` command, runnable from any directory.
+(cd "$REPO" && npm install --no-fund --no-audit --silent && npm link --silent)
+echo "linked equip CLI (run \`equip\` anywhere)"
+
 node --test "$REPO/hooks/rule-gate.test.mjs" >/dev/null && echo "rule-gate tests pass"
 echo "done — restart open agent sessions to pick up hooks (Codex: run /hooks once to trust them)"

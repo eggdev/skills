@@ -1,5 +1,5 @@
 ---
-"eggdev/skills": minor
+"@eggdev/skills": minor
 ---
 
 Add the universal rules system: canonical rule files in `rules/` (omp-compatible

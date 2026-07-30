@@ -1,5 +1,5 @@
 ---
-"eggdev/skills": patch
+"@eggdev/skills": patch
 ---
 
 Remove the unread `cwd` parameter from `evaluate()` in `hooks/rule-gate.mjs`.

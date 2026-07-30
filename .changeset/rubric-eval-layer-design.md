@@ -1,5 +1,5 @@
 ---
-"eggdev/skills": minor
+"@eggdev/skills": minor
 ---
 
 Add the rubric evaluation layer design and its first tooling. `docs/rubric-evals.md`

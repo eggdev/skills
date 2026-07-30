@@ -1,5 +1,5 @@
 ---
-"eggdev/skills": minor
+"@eggdev/skills": minor
 ---
 
 Author `rubrics/simplicity.md`, the first rubric of the evaluation layer. Six

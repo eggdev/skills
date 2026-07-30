@@ -60,19 +60,18 @@ session but is not mechanically enforced.
 Run [`install.sh`](install.sh) to deploy everything global: the `~/.agents/rules` symlink,
 the `~/.claude/CLAUDE.md` symlink, and the rule-gate hook wiring for Claude Code and Codex.
 
-For skills alone, clone and link the ones you want into `~/.claude/skills`:
+For skills, run the interactive installer from any directory:
 
 ```bash
-# all of them
-for d in skills/*/; do
-  ln -sfn "$PWD/$d" ~/.claude/skills/"$(basename "$d")"
-done
-
-# or just one
-ln -sfn "$PWD/skills/grill-me" ~/.claude/skills/grill-me
+equip
 ```
 
-Symlinks mean `git pull` updates every linked skill in place.
+`install.sh` puts the `equip` command on your PATH via `npm link`. Pick the
+skills you want, then pick a scope. Both scopes use one layout, the same one
+`npx skills` uses: the skill lives in `.agents/skills`, and `.claude/skills`
+points at it with a relative symlink. Globally the skill is itself a symlink
+to this repo, so `git pull` updates it in place. In a project it is a real
+copy, so collaborators get everything from that repo.
 
 Releases are cut as git tags by [`.github/workflows/release.yaml`](.github/workflows/release.yaml)
 via changesets — the package is `private`, so nothing publishes to npm; pin to a tag if you want
