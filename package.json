@@ -14,6 +14,7 @@
   "scripts": {
     "changeset": "changeset",
     "version": "changeset version",
+    "release": "gh pr merge changeset-release/main --squash --delete-branch && git pull --ff-only",
     "test": "node --test hooks/rule-gate.test.mjs"
   },
   "devDependencies": {
