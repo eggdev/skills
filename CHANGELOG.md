@@ -1,5 +1,11 @@
 # @eggdev/skills
 
+## 0.2.0
+
+### Minor Changes
+
+- 5704fd4: `npm install` now puts `equip` on your PATH. A `prepare` script symlinks the bin into npm's global bin directory, so both `install.sh` and a plain install wire the command. `install.sh` no longer calls `npm link`.
+
 ## 0.1.0
 
 ### Minor Changes
