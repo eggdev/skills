@@ -9,11 +9,12 @@ A number of these skills come from engineers that have worked hard and promoted 
 Every skill in this repo came from one of them.
 
 **[Matt Pocock](https://github.com/mattpocock)** — [mattpocock/skills](https://github.com/mattpocock/skills)
-The deepest single influence here. Eight of the twelve started as theirs:
+The deepest single influence here. Nine started as theirs:
 [`codebase-design`](skills/codebase-design/), [`grill-me`](skills/grill-me/),
 [`grilling`](skills/grilling/), [`handoff`](skills/handoff/),
 [`improve-codebase-architecture`](skills/improve-codebase-architecture/), [`tdd`](skills/tdd/),
-[`to-spec`](skills/to-spec/), [`zoom-out`](skills/zoom-out/).
+[`to-spec`](skills/to-spec/), [`writing-great-skills`](skills/writing-great-skills/),
+[`zoom-out`](skills/zoom-out/).
 
 **[shadcn](https://github.com/shadcn)** — [shadcn/improve](https://github.com/shadcn/improve)
 [`improve`](skills/improve/) — survey a codebase as a senior advisor and hand off prioritized,

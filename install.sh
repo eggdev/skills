@@ -19,6 +19,9 @@ link() {
 # Canonical rules: omp (and anything reading ~/.agents/rules) picks these up natively.
 link "$REPO/rules" "$HOME/.agents/rules"
 
+# Canonical rubrics: the judge runner reads these. See docs/rubric-evals.md.
+link "$REPO/rubrics" "$HOME/.agents/rubrics"
+
 # Prose tier for Claude Code.
 link "$REPO/home/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 
