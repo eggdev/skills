@@ -66,7 +66,8 @@ For skills, run the interactive installer from any directory:
 equip
 ```
 
-`install.sh` puts the `equip` command on your PATH via `npm link`. Pick the
+Both `install.sh` and a plain `npm install` in this repo put `equip` on your
+PATH: the `prepare` script symlinks it into npm's global bin directory. Pick the
 skills you want, then pick a scope. Both scopes use one layout, the same one
 `npx skills` uses: the skill lives in `.agents/skills`, and `.claude/skills`
 points at it with a relative symlink. Globally the skill is itself a symlink

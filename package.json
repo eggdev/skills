@@ -12,6 +12,7 @@
     "equip": "bin/equip.mjs"
   },
   "scripts": {
+    "prepare": "node bin/link.mjs",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "gh pr merge changeset-release/main --squash --delete-branch && git pull --ff-only",
