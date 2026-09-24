@@ -2,11 +2,19 @@
 
 So frequently, we find ourselves just downloading and toying with some new skills to see how the behavior feels for our workflows. This repository is the new staging ground for my own approved tools.
 
+## Original skills
+
+[`converge`](skills/converge/SKILL.md) finds unnecessary complexity through consumer tracing and evidence.
+It can audit a repository, review a finding, and apply an authorized cleanup.
+It started in Bar Savvy and now discovers each project's architecture and verification commands.
+
+Run `equip` and select `converge` to install it. Start with `$converge audit` in the target project.
+
 ## Notable engineers
 
 A number of these skills come from engineers that have worked hard and promoted their work publicly. It'd be extremely disingenuous to not support them and the impact that their skills have had on my engineering.
 
-Every skill in this repo came from one of them.
+The skills below started with their work.
 
 **[Matt Pocock](https://github.com/mattpocock)** — [mattpocock/skills](https://github.com/mattpocock/skills)
 The deepest single influence here. Nine started as theirs:
