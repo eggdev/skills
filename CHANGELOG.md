@@ -1,5 +1,11 @@
 # @eggdev/skills
 
+## 0.3.0
+
+### Minor Changes
+
+- 3203c9d: Add Converge for evidence-based cleanup across projects. Discover local architecture and verification commands while preserving consumer tracing and complete removal of obsolete paths.
+
 ## 0.2.0
 
 ### Minor Changes
